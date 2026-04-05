@@ -106,6 +106,10 @@ section {
   margin-bottom: 0.3rem;
 }
 
+.job ul li strong {
+  color: #222;
+}
+
 /* Skills grid */
 .skills-grid {
   display: grid;
