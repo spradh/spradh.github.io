@@ -1,0 +1,47 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  line-height: 1.7;
+  color: #222;
+  background: #fafafa;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+header {
+  margin-bottom: 2.5rem;
+  border-bottom: 2px solid #222;
+  padding-bottom: 1.5rem;
+}
+
+h1 {
+  font-size: 2.2rem;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.bio {
+  color: #555;
+  font-style: italic;
+}
+
+h2 {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.75rem;
+}
+
+section {
+  margin-bottom: 2rem;
+}
