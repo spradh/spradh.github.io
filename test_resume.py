@@ -103,8 +103,8 @@ class TestStructure(unittest.TestCase):
 class TestMetaRanking(unittest.TestCase):
     """DS — Ranking (Feb 2026–Present)"""
 
-    def test_feature_store_f3(self):
-        self.assertTrue(contains("F3"), "Missing: F3 feature store")
+    def test_feature_store(self):
+        self.assertTrue(contains("feature store"), "Missing: feature store")
 
     def test_ads_ranking(self):
         self.assertTrue(contains("ranking"), "Missing: ads ranking context")
@@ -115,8 +115,8 @@ class TestMetaRanking(unittest.TestCase):
     def test_revenue_impact(self):
         self.assertTrue(contains("revenue"), "Missing: revenue impact")
 
-    def test_mle_developer_experience(self):
-        self.assertTrue(contains("MLE"), "Missing: MLE developer experience")
+    def test_ml_engineer_developer_experience(self):
+        self.assertTrue(contains("ML engineers"), "Missing: ML engineers developer experience")
 
 
 class TestMetaRealityLabs(unittest.TestCase):
