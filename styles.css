@@ -18,6 +18,7 @@ body {
   margin: 0 auto;
 }
 
+/* Header */
 header {
   margin-bottom: 2.5rem;
   border-bottom: 2px solid #222;
@@ -33,15 +34,96 @@ h1 {
 .bio {
   color: #555;
   font-style: italic;
+  margin-bottom: 0.4rem;
 }
 
+.contact {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.contact a {
+  color: #555;
+  text-decoration: none;
+  border-bottom: 1px solid #ccc;
+}
+
+.contact a:hover {
+  color: #222;
+  border-bottom-color: #222;
+}
+
+/* Section headings */
 h2 {
-  font-size: 1.2rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 0.75rem;
+  letter-spacing: 1.5px;
+  margin-bottom: 1.25rem;
+  color: #888;
 }
 
 section {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Job entries */
+.job {
+  margin-bottom: 1.75rem;
+}
+
+.job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.job-title {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.job-date {
+  font-size: 0.85rem;
+  color: #888;
+  white-space: nowrap;
+  font-style: italic;
+}
+
+.job-company {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.4rem;
+}
+
+.job ul {
+  padding-left: 1.2rem;
+  font-size: 0.92rem;
+  color: #333;
+}
+
+.job ul li {
+  margin-bottom: 0.3rem;
+}
+
+/* Skills grid */
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.skill-group h3 {
+  font-size: 0.85rem;
+  font-family: Georgia, serif;
+  font-weight: bold;
+  margin-bottom: 0.4rem;
+  color: #444;
+}
+
+.skill-group ul {
+  list-style: none;
+  font-size: 0.9rem;
+  color: #333;
+  line-height: 1.8;
 }
