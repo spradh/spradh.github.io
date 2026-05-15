@@ -136,15 +136,9 @@ This is the right first move — you've named the likely confounder before spend
 
 **The decision:** Treatment sees a notification opt-in prompt during onboarding. Control doesn't. Measure 30-day retention.
 
-**Why this is more complete, but the treatment arm is underspecified:**
+**Why this is more complete, but the groups still aren't comparable:**
 
-Option A gave you a hypothesis about the confounder. Option B moves to causal experimentation — that's progress. But this test bundles three distinct changes into a single treatment arm, and you can't separate them.
-
-**The three confounds in the treatment:**
-
-1. **The prompt itself.** Seeing a screen about notifications may signal that the app has real-time value worth engaging with — regardless of whether the user taps "allow." The nudge alone could affect behavior.
-2. **Actual notification delivery.** Only the subset of treatment users who opted in receives push notifications. Their behavior gets averaged into the full treatment group, masking the effect.
-3. **Self-selection.** Users who choose to opt in are already more engaged than those who decline. Their retention reflects who they are, not what notifications did.
+Option A gave you a hypothesis about the confounder. Option B moves to causal experimentation — that's progress. But randomizing the prompt doesn't randomize user type. Users who opt in skew heavily toward high-engagement, and you didn't control for that before running the test.
 
 **Concrete example:**
 
@@ -157,7 +151,7 @@ But break down treatment:
 
 If you make the prompt more aggressive and bring in more casual users, the blended average drops. You've scaled a finding that wasn't real.
 
-**The insight:** Randomizing the prompt doesn't randomize opt-in. The lift could be the feature, the friction, or the type of user who said yes — and you need to know which before you can scale it.
+**The insight:** You randomized the prompt, but not user type. The groups aren't comparable — and that's exactly what Option C fixes by stratifying before randomizing.
 
 ---
 

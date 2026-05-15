@@ -287,7 +287,7 @@
             <ul style="font-size:13px; color:rgba(255,255,255,0.6); line-height:1.8; margin-bottom:10px; padding-left:16px; display:flex; flex-direction:column; gap:4px;">
               <li>The feed was roughly chronological — recent posts got more impressions, which mechanically produced more raw engagement</li>
               <li>Dividing engagement by impressions controls for that exposure bias</li>
-              <li>If recency still predicts engagement rate after the correction, the signal is real. If it collapses, it was a feedback loop artifact all along</li>
+              <li>FINDING: Recency still predicts engagement rate after the correction, the signal is real. If it collapses, it was a feedback loop artifact all along</li>
               <li>But this only tells you whether to act — not what to build or why the signal exists</li>
             </ul>
             <div style="font-size:13px; color:#E8A847; font-style:italic; line-height:1.5;">💡 Auditing the signal tells you if recency is real. It doesn't tell you what mechanism is driving it — or what intervention will move the needle.</div>
@@ -305,7 +305,7 @@
             <div class="quality-tag" style="background:rgba(232,168,71,0.15); color:#E8A847;">Better</div>
             <div style="font-size:14px; font-weight:600; margin-bottom:6px;">Better, But the Mechanism is Still Ambiguous</div>
             <ul style="font-size:13px; color:rgba(255,255,255,0.6); line-height:1.8; margin-bottom:10px; padding-left:16px; display:flex; flex-direction:column; gap:4px;">
-              <li>You run the test and see a small lift — the intervention did something</li>
+              <li>FINDING:You run the test and see a small lift — the intervention did something</li>
               <li>But two things changed at once: the ranking signal (recency weight) and the content shown (recent posts are, by definition, posts users haven't seen yet)</li>
               <li>The lift could be from recency preference, or from novelty — users engaging with any unseen content placed at the top of their feed</li>
               <li>You can't tell which mechanism drove the result — and you need to know before you can scale or generalize it</li>
@@ -328,8 +328,8 @@
               <li>Arm 1: recency boost — posts under 2 hours get 2x multiplier</li>
               <li>Arm 2: unseen-content boost — surface the highest-quality post this user hasn't seen, regardless of age</li>
               <li>Arm 3: baseline</li>
-              <li>Arm 1 ≈ Arm 2: the lift is novelty, not recency — the real lever is surfacing unseen content, which is a completely different product decision</li>
-              <li>D30 retention and session frequency prevent optimizing a short-term click metric at the expense of long-term feed quality</li>
+              <li>FINDING: Arm 1 ≈ Arm 2: the lift is novelty, not recency — the real lever is surfacing unseen content, which is a completely different product decision</li>
+              <li>Pro tip: Use D30 retention and session frequency as guardrail metrics to prevent optimizing a short-term click metric at the expense of long-term feed quality</li>
             </ul>
             <div style="font-size:13px; color:#54C88A; font-style:italic; line-height:1.5;">💡 The real lever wasn't time — it was unseen content relevant to that user. That's a completely different product decision than a recency boost.</div>
           </div>
@@ -414,7 +414,7 @@
             <ul style="font-size:13px; color:rgba(255,255,255,0.6); line-height:1.8; margin-bottom:10px; padding-left:16px; display:flex; flex-direction:column; gap:4px;">
               <li>Within high-engagement users: 52% retention with notifications, 48% without — a 4pp gap</li>
               <li>Within low-engagement users: 22% retention with notifications, 20% without — almost no gap</li>
-              <li>The 17pp aggregate gap is almost entirely explained by who opted in, not what notifications do</li>
+              <li>FINDING: The 17pp aggregate gap is almost entirely explained by who opted in, not what notifications do</li>
               <li>But this is still observational — you've named the likely confounder, not proven it. You need an experiment to establish causation</li>
             </ul>
             <div style="font-size:13px; color:#E8A847; font-style:italic; line-height:1.5;">💡 Segmenting the data identifies the confounder. It doesn't prove it — and it doesn't tell you what intervention will actually move retention.</div>
@@ -430,15 +430,13 @@
           </div>
           <div class="consequence">
             <div class="quality-tag" style="background:rgba(232,168,71,0.15); color:#E8A847;">Better</div>
-            <div style="font-size:14px; font-weight:600; margin-bottom:6px;">Causal, But Three Confounds in One Treatment</div>
+            <div style="font-size:14px; font-weight:600; margin-bottom:6px;">Causal, But the Groups Still Aren't Comparable</div>
             <ul style="font-size:13px; color:rgba(255,255,255,0.6); line-height:1.8; margin-bottom:10px; padding-left:16px; display:flex; flex-direction:column; gap:4px;">
-              <li>The test shows a 1-2 point lift — you've moved from observational to causal, which is progress</li>
-              <li><strong style="color:rgba(255,255,255,0.8);">The prompt itself:</strong> seeing a screen about notifications may affect behavior regardless of whether users opt in</li>
-              <li><strong style="color:rgba(255,255,255,0.8);">Actual notification delivery:</strong> only the subset of treatment who said yes receives them — their behavior is mixed into the overall treatment average</li>
-              <li><strong style="color:rgba(255,255,255,0.8);">Self-selection:</strong> users who opt in are already more engaged — their retention reflects who they are, not what notifications did</li>
-              <li>You can't separate these effects, so you can't explain the lift or confidently scale it</li>
+              <li>FINDING: The test shows a 1-2 point lift — you've moved from observational to causal, which is progress</li>
+              <li>But users who opt in skew toward high-engagement: opted-in users show 48% retention, those who declined show 31% — before notifications even enter the picture</li>
+              <li>The blended treatment average (37%) looks like a notification effect — it's the same composition artifact from the raw data, now living inside your experiment</li>
             </ul>
-            <div style="font-size:13px; color:#E8A847; font-style:italic; line-height:1.5;">💡 Randomizing the prompt doesn't randomize opt-in. The lift could be the feature, the friction, or the type of user who said yes.</div>
+            <div style="font-size:13px; color:#E8A847; font-style:italic; line-height:1.5;">💡 You randomized the prompt, but not user type. The groups aren't comparable — and Option C fixes that by stratifying before randomizing.</div>
           </div>
         </div>
         <div class="option-card" style="--opt-color:#54C88A; --opt-bg:rgba(84,200,138,0.06);" onclick="toggleOption(this)">
@@ -455,7 +453,7 @@
             <ul style="font-size:13px; color:rgba(255,255,255,0.6); line-height:1.8; margin-bottom:10px; padding-left:16px; display:flex; flex-direction:column; gap:4px;">
               <li>Within low-engagement users: notifications have almost no effect on retention — these users churn because the product didn't fit, not because they missed a push</li>
               <li>Within high-engagement users: a small convenience, not a meaningful retention driver</li>
-              <li>The 17pp gap disappears when you hold user type constant — it was user type all along, not notifications</li>
+              <li>FINDING: The 17pp gap disappears when you hold user type constant — it was user type all along, not notifications</li>
               <li>The real problem is onboarding: users who don't find value in week one churn regardless of notification status</li>
             </ul>
             <div style="font-size:13px; color:#54C88A; font-style:italic; line-height:1.5;">💡 When you see a correlation, ask what confounder could explain it. Stratify to control for it — then the real problem becomes visible.</div>
@@ -473,12 +471,12 @@
       <h2 style="font-size:28px; font-weight:700; margin-bottom:24px;">The Confounder You Didn't Control For</h2>
       <div class="diagram-box" style="margin-bottom:24px; max-width:500px;">
         <div class="mono" style="font-size:12px; color:#E8C547; line-height:1.8;">A · Segment → 17pp gap collapses within tiers. User type is the likely confounder.</div>
-        <div class="mono" style="font-size:12px; color:rgba(255,255,255,0.5); line-height:1.8;">B · A/B test → 1-2pt lift, but prompt, opt-in, and self-selection are all confounded</div>
+        <div class="mono" style="font-size:12px; color:rgba(255,255,255,0.5); line-height:1.8;">B · A/B test → 1-2pt lift, but user type wasn't controlled — the groups aren't comparable</div>
         <div class="mono" style="font-size:12px; color:#54C88A; line-height:1.8;">C · Stratified experiment → notifications ≈ no effect within tiers. Real problem: onboarding.</div>
       </div>
       <ul style="font-size:13px; color:rgba(255,255,255,0.7); line-height:1.8; margin-bottom:28px; max-width:500px; padding-left:16px; text-align:left; display:flex; flex-direction:column; gap:4px;">
         <li>Segmenting the data named the confounder — the 17pp gap was almost entirely a composition effect, not a notification effect</li>
-        <li>The A/B test confirmed something moved, but couldn't say what — three things changed at once inside the treatment arm</li>
+        <li>The A/B test confirmed something moved — but the treatment group skewed toward power users, so the lift reflects who opted in, not what notifications did</li>
         <li>The stratified experiment proved it: within each engagement tier, notifications had almost no effect on retention</li>
         <li>The real lever is onboarding — users who don't find value in week one churn regardless of notification status</li>
       </ul>
