@@ -110,6 +110,36 @@ section {
   color: #222;
 }
 
+/* Talk entries */
+.talk {
+  margin-bottom: 1.5rem;
+}
+
+.talk-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.talk-title {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.talk-event {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 0.15rem;
+}
+
+.talk-date {
+  font-size: 0.85rem;
+  color: #888;
+  font-style: italic;
+  white-space: nowrap;
+}
+
 /* Skills grid */
 .skills-grid {
   display: grid;
