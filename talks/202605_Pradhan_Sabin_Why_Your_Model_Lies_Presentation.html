@@ -253,7 +253,7 @@
       </div>
       <h2 style="font-size:32px; font-weight:700; margin-bottom:16px;">When product teams trust model output too literally</h2>
       <div style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.6; margin-bottom:12px;">You're on the ranking team at a content platform. Your ML model predicts engagement (likes, comments, shares) on posts in a feed.</div>
-      <div style="font-size:15px; color:rgba(255,255,255,0.5); line-height:1.6; margin-bottom:20px;">Feature importance analysis comes back. The #1 driver is "time since post creation" with an importance score of 0.23. The team must decide: does this mean "boost recent posts"?</div>
+      <div style="font-size:15px; color:rgba(255,255,255,0.5); line-height:1.6; margin-bottom:20px;">Feature importance analysis comes back. The #1 driver is "time since post creation" (importance: 0.23) — but the feature name alone doesn't tell you what it's capturing. Is the model rewarding recency itself? Engagement velocity? A novelty bias baked into the training data? The team must decide: does this mean "boost recent posts"?</div>
       <div class="card" style="margin-bottom:20px; padding:16px 20px;">
         <div class="mono" style="font-size:11px; color:rgba(255,255,255,0.3); margin-bottom:12px; letter-spacing:1px;">FEATURE IMPORTANCE</div>
         <div id="feature-bars"></div>
@@ -580,7 +580,7 @@
     const container = document.getElementById('feature-bars');
     if (container.children.length > 0) return;
     const features = [
-      { name: 'Time since creation', score: 0.23 },
+      { name: 'Time since creation*', score: 0.23 },
       { name: 'Creator followers', score: 0.18 },
       { name: 'User-creator interactions', score: 0.15 },
       { name: 'Post media quality', score: 0.12 },
