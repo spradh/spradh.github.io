@@ -241,7 +241,7 @@
           <div style="font-size:13px; color:rgba(255,255,255,0.5); line-height:1.6;">Notification opt-ins correlate with 17-point higher retention. The team wants to scale it.</div>
         </div>
       </div>
-      <div style="font-size:14px; color:rgba(255,255,255,0.3); font-style:italic;">Same question each time: is this a causal lever, or just a pattern the data learned?</div>
+      <div style="font-size:14px; color:rgba(255,255,255,0.3); font-style:italic;">Same question each time: is this a causal lever, or just a pattern the model learned?</div>
     </div>
   </div>
 
@@ -273,66 +273,65 @@
       </div>
       <h2 style="font-size:26px; font-weight:700; margin-bottom:20px;">What do you recommend?</h2>
       <div style="display:flex; flex-direction:column; gap:12px;" id="options-cs1">
-        <div class="option-card" style="--opt-color:#E85454; --opt-bg:rgba(232,84,84,0.06);" onclick="toggleOption(this)">
+        <div class="option-card" style="--opt-color:#E8A847; --opt-bg:rgba(232,168,71,0.06);" onclick="toggleOption(this)">
           <div style="display:flex; align-items:flex-start; gap:12px;">
             <div class="id-circle" style="background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.5);">A</div>
             <div style="flex:1;">
-              <div style="font-size:15px; font-weight:600; margin-bottom:4px;">Ship the recency boost</div>
-              <div style="font-size:13px; color:rgba(255,255,255,0.5); line-height:1.5;">Give posts under 2 hours a 2x multiplier. The model says recency matters most — let's optimize for it.</div>
+              <div style="font-size:15px; font-weight:600; margin-bottom:4px;">Audit the signal before acting</div>
+              <div style="font-size:13px; color:rgba(255,255,255,0.5); line-height:1.5;">Normalize engagement by impressions in the training data. Check whether recency predicts engagement rate — not raw engagement counts — after controlling for exposure.</div>
             </div>
           </div>
           <div class="consequence">
-            <div class="quality-tag" style="background:rgba(232,84,84,0.15); color:#E85454;">Common Choice</div>
-            <div style="font-size:14px; font-weight:600; margin-bottom:6px;">The Trap</div>
+            <div class="quality-tag" style="background:rgba(232,168,71,0.15); color:#E8A847;">Good Start</div>
+            <div style="font-size:14px; font-weight:600; margin-bottom:6px;">Right Direction, But Only a Diagnostic</div>
             <ul style="font-size:13px; color:rgba(255,255,255,0.6); line-height:1.8; margin-bottom:10px; padding-left:16px; display:flex; flex-direction:column; gap:4px;">
-              <li>The model didn't learn that users prefer recent content — it learned the platform's own behavior</li>
-              <li>The feed was already chronological, so recent posts got more impressions, which produced more engagement</li>
-              <li>That's a feedback loop — the model copied the feed design, not a real user preference</li>
-              <li>Boosting recency further amplifies that loop. Nothing about what users actually want has changed</li>
+              <li>The feed was roughly chronological — recent posts got more impressions, which mechanically produced more raw engagement</li>
+              <li>Dividing engagement by impressions controls for that exposure bias</li>
+              <li>If recency still predicts engagement rate after the correction, the signal is real. If it collapses, it was a feedback loop artifact all along</li>
+              <li>But this only tells you whether to act — not what to build or why the signal exists</li>
             </ul>
-            <div style="font-size:13px; color:#E85454; font-style:italic; line-height:1.5;">💡 Feature importance tells you what the model learned from your data — not what users actually prefer.</div>
+            <div style="font-size:13px; color:#E8A847; font-style:italic; line-height:1.5;">💡 Auditing the signal tells you if recency is real. It doesn't tell you what mechanism is driving it — or what intervention will move the needle.</div>
           </div>
         </div>
         <div class="option-card" style="--opt-color:#E8A847; --opt-bg:rgba(232,168,71,0.06);" onclick="toggleOption(this)">
           <div style="display:flex; align-items:flex-start; gap:12px;">
             <div class="id-circle" style="background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.5);">B</div>
             <div style="flex:1;">
-              <div style="font-size:15px; font-weight:600; margin-bottom:4px;">A/B test the recency boost first</div>
-              <div style="font-size:13px; color:rgba(255,255,255,0.5); line-height:1.5;">Run a controlled experiment: treatment gets the 2x recency multiplier, control gets baseline ranking.</div>
+              <div style="font-size:15px; font-weight:600; margin-bottom:4px;">A/B test the recency boost</div>
+              <div style="font-size:13px; color:rgba(255,255,255,0.5); line-height:1.5;">Treatment gets a 2x multiplier for posts under 2 hours. Control gets baseline ranking. Measure engagement over 7 days.</div>
             </div>
           </div>
           <div class="consequence">
             <div class="quality-tag" style="background:rgba(232,168,71,0.15); color:#E8A847;">Better</div>
-            <div style="font-size:14px; font-weight:600; margin-bottom:6px;">Better, But Incomplete</div>
+            <div style="font-size:14px; font-weight:600; margin-bottom:6px;">Better, But the Mechanism is Still Ambiguous</div>
             <ul style="font-size:13px; color:rgba(255,255,255,0.6); line-height:1.8; margin-bottom:10px; padding-left:16px; display:flex; flex-direction:column; gap:4px;">
-              <li>You run the test and see a small lift — but it's likely from novelty, not recency</li>
-              <li>Boosting recent posts replaces content users may have already seen with posts they haven't encountered yet</li>
-              <li>Users engage slightly more with unseen content — not because it's recent, but because it's new to them in that session</li>
-              <li>If you'd boosted any unseen posts to the top, you'd probably see the same result</li>
-              <li>The test can't separate "users prefer recent content" from "users engage with anything they haven't seen before"</li>
+              <li>You run the test and see a small lift — the intervention did something</li>
+              <li>But two things changed at once: the ranking signal (recency weight) and the content shown (recent posts are, by definition, posts users haven't seen yet)</li>
+              <li>The lift could be from recency preference, or from novelty — users engaging with any unseen content placed at the top of their feed</li>
+              <li>You can't tell which mechanism drove the result — and you need to know before you can scale or generalize it</li>
             </ul>
-            <div style="font-size:13px; color:#E8A847; font-style:italic; line-height:1.5;">💡 The bump tells you the metric moved. It doesn't tell you why — and you need to know why before you can scale it.</div>
+            <div style="font-size:13px; color:#E8A847; font-style:italic; line-height:1.5;">💡 The test tells you the metric moved. It doesn't tell you whether recency or novelty moved it — and those lead to completely different product decisions.</div>
           </div>
         </div>
         <div class="option-card" style="--opt-color:#54C88A; --opt-bg:rgba(84,200,138,0.06);" onclick="toggleOption(this)">
           <div style="display:flex; align-items:flex-start; gap:12px;">
             <div class="id-circle" style="background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.5);">C</div>
             <div style="flex:1;">
-              <div style="font-size:15px; font-weight:600; margin-bottom:4px;">Challenge the causal assumption</div>
-              <div style="font-size:13px; color:rgba(255,255,255,0.5); line-height:1.5;">Ask: "Does recency cause engagement, or does exposure?" Design a test that separates quality + relevance from recency.</div>
+              <div style="font-size:15px; font-weight:600; margin-bottom:4px;">Isolate the mechanism with a 3-arm test</div>
+              <div style="font-size:13px; color:rgba(255,255,255,0.5); line-height:1.5;">Add a third arm — unseen-content boost (any post this user hasn't seen, regardless of age). Measure D30 retention and session frequency alongside immediate engagement.</div>
             </div>
           </div>
           <div class="consequence">
             <div class="quality-tag" style="background:rgba(84,200,138,0.15); color:#54C88A;">Best Practice</div>
-            <div style="font-size:14px; font-weight:600; margin-bottom:6px;">The Causal Reframe</div>
+            <div style="font-size:14px; font-weight:600; margin-bottom:6px;">The Complete Analysis</div>
             <ul style="font-size:13px; color:rgba(255,255,255,0.6); line-height:1.8; margin-bottom:10px; padding-left:16px; display:flex; flex-direction:column; gap:4px;">
-              <li>You pit two ranking strategies head to head: recency-only vs. quality + relevance</li>
-              <li>Quality + relevance ranks by fit: how often has this user engaged with this creator? How high is this post's engagement rate per impression? Age doesn't factor in</li>
-              <li>A 3-day-old post from a creator you always engage with beats a post from 10 minutes ago from an account you followed once and never touched</li>
-              <li>Quality wins — users engage more and return more often</li>
-              <li>Recency was a proxy for "posts users haven't seen yet" — not a cause of engagement in itself</li>
+              <li>Arm 1: recency boost — posts under 2 hours get 2x multiplier</li>
+              <li>Arm 2: unseen-content boost — surface the highest-quality post this user hasn't seen, regardless of age</li>
+              <li>Arm 3: baseline</li>
+              <li>Arm 1 ≈ Arm 2: the lift is novelty, not recency — the real lever is surfacing unseen content, which is a completely different product decision</li>
+              <li>D30 retention and session frequency prevent optimizing a short-term click metric at the expense of long-term feed quality</li>
             </ul>
-            <div style="font-size:13px; color:#54C88A; font-style:italic; line-height:1.5;">💡 The real lever wasn't time — it was relevance to that specific user. That's a completely different product decision.</div>
+            <div style="font-size:13px; color:#54C88A; font-style:italic; line-height:1.5;">💡 The real lever wasn't time — it was unseen content relevant to that user. That's a completely different product decision than a recency boost.</div>
           </div>
         </div>
       </div>
