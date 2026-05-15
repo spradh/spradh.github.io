@@ -109,92 +109,86 @@ The question is: does enabling notifications cause users to stay, or are we obse
 
 ---
 
-### Option A — Launch the notification push
+### Option A — Segment the data before acting *(Good Start)*
 
-**The decision:** Build an aggressive onboarding prompt. Get as many users as possible to enable push notifications.
+**The decision:** Before running any experiment, break the 17pp gap down by user engagement tier. Check whether the gap holds within high-engagement and low-engagement users separately.
 
-**Why this is wrong:**
+**Why this is directionally right, but still observational:**
 
-The 17-point gap is real. But it's not caused by notifications. It's caused by user type.
-
-Power users — people who are genuinely invested in the product — do two things: they enable notifications (because they want to stay up to date) and they return over 30 days (because the product matters to them). Casual users do neither.
-
-The notification opt-in rate and the retention rate are both *symptoms* of the same underlying condition: how invested a user is. They move together because a common cause drives both of them, not because one causes the other.
+The 17pp aggregate gap is suspicious because it conflates two very different populations. Power users — people already invested in the product — both enable notifications and stay retained. Casual users do neither. If user type is the real driver, the gap should shrink dramatically within each tier.
 
 **Concrete example:**
 
-- **User A** (power user): downloads the app, completes onboarding, enables notifications, uses the app 4x per week, still active at day 30.
-- **User B** (casual user): downloads the app, skips notifications, opens the app twice, churns by day 10.
+Break the cohort by engagement level before looking at notifications:
 
-Now you build an aggressive notification prompt. User B, who was going to churn anyway, sees the prompt and enables notifications. What happens?
+- **High-engagement users:** 52% retention with notifications, 48% without — a 4pp gap
+- **Low-engagement users:** 22% retention with notifications, 20% without — almost no gap
 
-User B still churns at day 10. Getting a push notification doesn't change the fact that the product didn't fit their needs. You moved the notification opt-in rate, but you didn't treat the underlying problem.
+The 17pp aggregate was almost entirely a composition effect: the notification-enabled group was disproportionately made up of high-engagement users, not a signal that notifications cause retention.
 
-**The insight:** You forced the symptom without treating the cause. Opt-in predicts retention because invested users do both. Promoting one doesn't create the other.
+This is the right first move — you've named the likely confounder before spending on an experiment. But it's still observational. You've found correlation within segments, not causation. The confounder explanation could still be incomplete.
+
+**The insight:** Segmenting the data identifies the confounder. It doesn't prove it — and it doesn't tell you what intervention will actually move retention.
 
 ---
 
-### Option B — A/B test the onboarding prompt
+### Option B — A/B test the onboarding prompt *(Better)*
 
-**The decision:** Treatment group sees a notification opt-in prompt during onboarding. Control doesn't. Measure 30-day retention.
+**The decision:** Treatment sees a notification opt-in prompt during onboarding. Control doesn't. Measure 30-day retention.
 
-**Why this is better, but the experiment design is flawed:**
+**Why this is more complete, but the treatment arm is underspecified:**
 
-Testing is the right move. But this test has three simultaneous changes inside the treatment arm, and you can't separate them.
+Option A gave you a hypothesis about the confounder. Option B moves to causal experimentation — that's progress. But this test bundles three distinct changes into a single treatment arm, and you can't separate them.
 
-**The three confounds:**
+**The three confounds in the treatment:**
 
-1. **The prompt itself.** Users in treatment see an onboarding screen about notifications. Just having that screen — regardless of whether they tap "allow" — may affect behavior. It signals that the app has real-time features worth staying for. That nudge alone could lift retention slightly.
-
-2. **Actual notification delivery.** Among users who opt in, they now receive push notifications. This is potentially the real intervention — but it only applies to the subset of treatment users who said yes.
-
-3. **Self-selection within treatment.** Users who choose to opt in are already more engaged than those who decline. Their 30-day retention was higher before the experiment started. When you average the treatment group together (opted in + declined), you're mixing two populations with very different baseline retention rates.
+1. **The prompt itself.** Seeing a screen about notifications may signal that the app has real-time value worth engaging with — regardless of whether the user taps "allow." The nudge alone could affect behavior.
+2. **Actual notification delivery.** Only the subset of treatment users who opted in receives push notifications. Their behavior gets averaged into the full treatment group, masking the effect.
+3. **Self-selection.** Users who choose to opt in are already more engaged than those who decline. Their retention reflects who they are, not what notifications did.
 
 **Concrete example:**
 
-You run the test. Treatment retention = 37%. Control retention = 35%. You report a 2-point lift.
+Treatment retention = 37%, control = 35%. A 2-point lift.
 
-But break down the treatment group:
-- Treatment users who opted in: 48% retention (mostly power users who would have been retained anyway)
-- Treatment users who declined: 31% retention (casual users, same as control)
-- Blended treatment average: 37% (looks like a lift, but it's the composition of the group, not the notifications)
+But break down treatment:
+- Opted in: 48% retention (mostly power users, retained regardless)
+- Declined: 31% retention (casual users, same as control)
+- Blended: 37% — a composition artifact, not a notification effect
 
-The PM wants to scale this. You have a lift you can't explain, driven by a segment you can't control for at scale. If you triple the prompt aggressiveness and bring in more casual users, the blended average drops — and you've mistaken statistical noise for a product insight.
+If you make the prompt more aggressive and bring in more casual users, the blended average drops. You've scaled a finding that wasn't real.
 
-**The insight:** Randomizing the prompt doesn't randomize opt-in. The lift could be from the feature, the friction of seeing the prompt, or the type of user who said yes. You need to know which one before you can scale it.
+**The insight:** Randomizing the prompt doesn't randomize opt-in. The lift could be the feature, the friction, or the type of user who said yes — and you need to know which before you can scale it.
 
 ---
 
-### Option C — Stratify and isolate the causal effect *(Best Practice)*
+### Option C — Stratified experiment within engagement tiers *(Best Practice)*
 
-**The decision:** Segment users by engagement level before running any test. Test notifications only on high-churn-risk users. Separate the notification effect from the power-user effect.
+**The decision:** Segment users by engagement level first, then randomize the notification prompt within each stratum. Compare like-for-like populations.
 
-**Why this is the right call:**
+**Why this completes the analysis:**
 
-The 17-point gap is a confounded correlation. The confounder is user type — specifically, how invested a user is in the product. To measure the causal effect of notifications, you need to hold user type constant.
+Option A named the confounder. Option B ran a causal test but left the confound inside the treatment arm. Option C controls for the confounder before randomizing, so you're finally comparing equivalent users.
 
 **The experiment design:**
 
-Stratify your user base into engagement tiers before randomizing:
-- **High-engagement users:** frequent sessions, deep feature usage, completed onboarding
-- **Low-engagement users:** few sessions, minimal feature usage, dropped off early in onboarding
+Stratify into engagement tiers before any randomization:
+- **High-engagement users:** completed onboarding, multiple sessions in week one, deep feature usage
+- **Low-engagement users:** dropped off early, minimal sessions, skipped key onboarding steps
 
-Run the notification prompt test within each stratum separately. Now you're comparing like-for-like: high-engagement users who got the prompt vs. high-engagement users who didn't; low-engagement users who got the prompt vs. low-engagement users who didn't.
+Run the notification prompt test within each tier separately. Now treatment and control within each stratum are comparable populations.
 
 **What the results show:**
 
-- Within low-engagement users: notifications have almost no effect on retention. These users churn because the product doesn't fit their needs, and a push notification doesn't change that.
-- Within high-engagement users: notifications are a small convenience. They're already retained — the notification is a marginal quality-of-life improvement, not a retention driver.
+- Within low-engagement users: notifications have almost no effect. These users churn because the product didn't fit their needs — a push notification doesn't change that.
+- Within high-engagement users: a small convenience, not a meaningful retention driver. They were already coming back.
 
-When you control for engagement level, the 17-point gap disappears. The gap existed because the two groups in the original cohort analysis (notification enabled vs. not) were not comparable populations. They were power users vs. casual users — and you were measuring the power-user effect, not the notification effect.
+When you hold user type constant, the 17pp gap disappears entirely. It was never a notification effect — it was a label that said "power user."
 
-**The actual retention problem:**
+**The actual problem:**
 
-The data now points clearly at the real issue: onboarding and content quality. Users who make it past the first week stay. Users who don't make it through onboarding churn regardless of notification status.
+The data now points at the real issue: onboarding. Users who don't find value in week one churn regardless of notification status. The right intervention is fixing the first-session experience, not prompting for notifications.
 
-The right intervention is not a notification prompt. It's fixing the first-session experience and ensuring new users find the content that's relevant to them before they decide the product isn't for them.
-
-**The insight:** When you see a correlation, ask what confounder could explain it. Stratify to control for it. The 17 percentage points weren't a lever — they were a label, and it said "power user," not "notifications work."
+**The insight:** When you see a correlation, ask what confounder could explain it. Stratify to control for it — then the real problem becomes visible.
 
 ---
 

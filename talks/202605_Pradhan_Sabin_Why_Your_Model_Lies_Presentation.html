@@ -401,24 +401,24 @@
       </div>
       <h2 style="font-size:26px; font-weight:700; margin-bottom:20px;">What do you recommend?</h2>
       <div style="display:flex; flex-direction:column; gap:12px;" id="options-cs2">
-        <div class="option-card" style="--opt-color:#E85454; --opt-bg:rgba(232,84,84,0.06);" onclick="toggleOption(this)">
+        <div class="option-card" style="--opt-color:#E8A847; --opt-bg:rgba(232,168,71,0.06);" onclick="toggleOption(this)">
           <div style="display:flex; align-items:flex-start; gap:12px;">
             <div class="id-circle" style="background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.5);">A</div>
             <div style="flex:1;">
-              <div style="font-size:15px; font-weight:600; margin-bottom:4px;">Launch the notification push</div>
-              <div style="font-size:13px; color:rgba(255,255,255,0.5); line-height:1.5;">Build an aggressive onboarding prompt. Get as many users as possible to enable push notifications.</div>
+              <div style="font-size:15px; font-weight:600; margin-bottom:4px;">Segment the data before acting</div>
+              <div style="font-size:13px; color:rgba(255,255,255,0.5); line-height:1.5;">Break the 17pp gap down by user engagement tier. Check whether the gap holds within high-engagement and low-engagement users separately.</div>
             </div>
           </div>
           <div class="consequence">
-            <div class="quality-tag" style="background:rgba(232,84,84,0.15); color:#E85454;">Common Choice</div>
-            <div style="font-size:14px; font-weight:600; margin-bottom:6px;">The Confounding Trap</div>
+            <div class="quality-tag" style="background:rgba(232,168,71,0.15); color:#E8A847;">Good Start</div>
+            <div style="font-size:14px; font-weight:600; margin-bottom:6px;">Right Direction, But Still Observational</div>
             <ul style="font-size:13px; color:rgba(255,255,255,0.6); line-height:1.8; margin-bottom:10px; padding-left:16px; display:flex; flex-direction:column; gap:4px;">
-              <li>Notification opt-in rate jumps — but 30-day retention barely moves</li>
-              <li>Casual users enabled notifications and still churned at the same rate</li>
-              <li>Power users were already retained — the prompt didn't change their behavior</li>
-              <li>You forced the symptom without treating the underlying problem</li>
+              <li>Within high-engagement users: 52% retention with notifications, 48% without — a 4pp gap</li>
+              <li>Within low-engagement users: 22% retention with notifications, 20% without — almost no gap</li>
+              <li>The 17pp aggregate gap is almost entirely explained by who opted in, not what notifications do</li>
+              <li>But this is still observational — you've named the likely confounder, not proven it. You need an experiment to establish causation</li>
             </ul>
-            <div style="font-size:13px; color:#E85454; font-style:italic; line-height:1.5;">💡 Opt-in predicts retention because invested users do both. Promoting one doesn't create the other.</div>
+            <div style="font-size:13px; color:#E8A847; font-style:italic; line-height:1.5;">💡 Segmenting the data identifies the confounder. It doesn't prove it — and it doesn't tell you what intervention will actually move retention.</div>
           </div>
         </div>
         <div class="option-card" style="--opt-color:#E8A847; --opt-bg:rgba(232,168,71,0.06);" onclick="toggleOption(this)">
@@ -426,18 +426,18 @@
             <div class="id-circle" style="background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.5);">B</div>
             <div style="flex:1;">
               <div style="font-size:15px; font-weight:600; margin-bottom:4px;">A/B test the onboarding prompt</div>
-              <div style="font-size:13px; color:rgba(255,255,255,0.5); line-height:1.5;">Treatment group sees a notification opt-in prompt. Control doesn't. Measure 30-day retention.</div>
+              <div style="font-size:13px; color:rgba(255,255,255,0.5); line-height:1.5;">Treatment sees a notification opt-in prompt during onboarding. Control doesn't. Measure 30-day retention.</div>
             </div>
           </div>
           <div class="consequence">
             <div class="quality-tag" style="background:rgba(232,168,71,0.15); color:#E8A847;">Better</div>
-            <div style="font-size:14px; font-weight:600; margin-bottom:6px;">Right Instinct, Wrong Design</div>
+            <div style="font-size:14px; font-weight:600; margin-bottom:6px;">Causal, But Three Confounds in One Treatment</div>
             <ul style="font-size:13px; color:rgba(255,255,255,0.6); line-height:1.8; margin-bottom:10px; padding-left:16px; display:flex; flex-direction:column; gap:4px;">
-              <li>The test shows a 1-2 point lift — but three things changed at once, and you can't separate them</li>
-              <li><strong style="color:rgba(255,255,255,0.8);">The prompt itself:</strong> just seeing a screen asking about notifications may increase awareness, regardless of opt-in</li>
-              <li><strong style="color:rgba(255,255,255,0.8);">Actual notifications:</strong> users who opted in now receive them — but that's only a subset of treatment</li>
-              <li><strong style="color:rgba(255,255,255,0.8);">Self-selection:</strong> users who choose to opt in are already more engaged — their retention was never driven by notifications</li>
-              <li>The PM wants to scale it. You're not confident enough to say yes — and you can't explain why it worked</li>
+              <li>The test shows a 1-2 point lift — you've moved from observational to causal, which is progress</li>
+              <li><strong style="color:rgba(255,255,255,0.8);">The prompt itself:</strong> seeing a screen about notifications may affect behavior regardless of whether users opt in</li>
+              <li><strong style="color:rgba(255,255,255,0.8);">Actual notification delivery:</strong> only the subset of treatment who said yes receives them — their behavior is mixed into the overall treatment average</li>
+              <li><strong style="color:rgba(255,255,255,0.8);">Self-selection:</strong> users who opt in are already more engaged — their retention reflects who they are, not what notifications did</li>
+              <li>You can't separate these effects, so you can't explain the lift or confidently scale it</li>
             </ul>
             <div style="font-size:13px; color:#E8A847; font-style:italic; line-height:1.5;">💡 Randomizing the prompt doesn't randomize opt-in. The lift could be the feature, the friction, or the type of user who said yes.</div>
           </div>
@@ -446,20 +446,20 @@
           <div style="display:flex; align-items:flex-start; gap:12px;">
             <div class="id-circle" style="background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.5);">C</div>
             <div style="flex:1;">
-              <div style="font-size:15px; font-weight:600; margin-bottom:4px;">Stratify and isolate the causal effect</div>
-              <div style="font-size:13px; color:rgba(255,255,255,0.5); line-height:1.5;">Segment by user engagement level. Test notifications only on high-churn-risk users. Separate the notification effect from the power-user effect.</div>
+              <div style="font-size:15px; font-weight:600; margin-bottom:4px;">Stratified experiment within engagement tiers</div>
+              <div style="font-size:13px; color:rgba(255,255,255,0.5); line-height:1.5;">Segment users by engagement level first, then randomize the notification prompt within each stratum. Compare like-for-like populations.</div>
             </div>
           </div>
           <div class="consequence">
             <div class="quality-tag" style="background:rgba(84,200,138,0.15); color:#54C88A;">Best Practice</div>
-            <div style="font-size:14px; font-weight:600; margin-bottom:6px;">The Causal Design</div>
+            <div style="font-size:14px; font-weight:600; margin-bottom:6px;">The Complete Analysis</div>
             <ul style="font-size:13px; color:rgba(255,255,255,0.6); line-height:1.8; margin-bottom:10px; padding-left:16px; display:flex; flex-direction:column; gap:4px;">
-              <li>Within low-engagement users, notifications have almost no effect on retention</li>
-              <li>Within high-engagement users, they're a small convenience — not a meaningful driver</li>
-              <li>The 17-point gap disappears when you control for engagement level</li>
-              <li>The real retention problem is onboarding and content quality — not notifications</li>
+              <li>Within low-engagement users: notifications have almost no effect on retention — these users churn because the product didn't fit, not because they missed a push</li>
+              <li>Within high-engagement users: a small convenience, not a meaningful retention driver</li>
+              <li>The 17pp gap disappears when you hold user type constant — it was user type all along, not notifications</li>
+              <li>The real problem is onboarding: users who don't find value in week one churn regardless of notification status</li>
             </ul>
-            <div style="font-size:13px; color:#54C88A; font-style:italic; line-height:1.5;">💡 When you see a correlation, ask: what confounder could explain this? Stratify to control for it.</div>
+            <div style="font-size:13px; color:#54C88A; font-style:italic; line-height:1.5;">💡 When you see a correlation, ask what confounder could explain it. Stratify to control for it — then the real problem becomes visible.</div>
           </div>
         </div>
       </div>
